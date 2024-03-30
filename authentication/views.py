@@ -45,16 +45,14 @@ def signup(request):
         myuser.last_name = lastname
 
         myuser.save()
-        messages.success(request,"Your account has been created successfully and we sent an confimation mail")
-        return redirect('signin')
-    
-        #welcome mail for the user
+        messages.success(request,"Your account has been created successfully. Check your Mail")
 
         subject = "Welcome to VCET-ECE"
-        message = "Hello" + myuser.first_name + "!!!.. \n" "Welcome to the department of electronics and communication \n" + "Thankyou for visiting our page\n" + "Additionally we sent a confirmation mail for you please go to that mail and confirm your mail id in order to cereate your account"
+        message = "Hello " + myuser.first_name + " !!!.. \n\n" "\tWelcome to the department of electronics and communication \n" + "Thank You for visiting our page\n\n\n" + "Best Regards\n" + "The Department of ECE"
         from_email = settings.EMAIL_HOST_USER
         to_email = [myuser.email]
-        send_mail(subject,message,from_email,to_email, fail_silently=True)
+        send_mail(subject,message,from_email,to_email, fail_silently=False)
+        return redirect('signin')
 
         
     return render(request,'authentication/signup.html')
